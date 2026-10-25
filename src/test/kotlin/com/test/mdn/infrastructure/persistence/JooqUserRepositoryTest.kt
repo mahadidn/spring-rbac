@@ -1,6 +1,5 @@
 package com.test.mdn.infrastructure.persistence
 
-
 import com.test.mdn.domain.model.User
 import com.test.mdn.domain.repository.UserRepository
 import org.junit.jupiter.api.Test
