@@ -28,6 +28,7 @@ class SecurityConfig {
                 authorize("/scalar/**", permitAll)
                 authorize("/api-docs/**", permitAll)
                 authorize("/docs/**", permitAll)
+                authorize("/api/products/**", permitAll)
 
                 // Selain itu wajib login
                 authorize(anyRequest, authenticated)

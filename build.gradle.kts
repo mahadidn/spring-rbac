@@ -81,21 +81,46 @@ kotlin {
 // ===== jOOQ code generation: baca tabel LANGSUNG dari database PostgreSQL =====
 // Syarat: PostgreSQL menyala dan tabel sudah dibuat sebelum menjalankan jooqCodegen.
 jooq {
-	configuration {
-		jdbc {
-			driver = "org.postgresql.Driver"
-			url = "jdbc:postgresql://localhost:5433/portal"
-			user = "postgres"
-			password = "postgres"
-		}
-		generator {
-			database {
-				name = "org.jooq.meta.postgres.PostgresDatabase"
-				inputSchema = "public"
+	executions {
+		// Database utama: rbac_db
+		create("main") {
+			configuration {
+				jdbc {
+					driver = "org.postgresql.Driver"
+					url = "jdbc:postgresql://localhost:5433/portal"
+					user = "postgres"
+					password = "postgres"
+				}
+				generator {
+					database {
+						name = "org.jooq.meta.postgres.PostgresDatabase"
+						inputSchema = "public"
+					}
+					target {
+						packageName = "com.test.mdn.infrastructure.persistence.jooq.generated"
+					}
+				}
 			}
-			target {
-				// Class hasil generate jOOQ hanya boleh dipakai di layer infrastructure
-				packageName = "com.test.mdn.infrastructure.persistence.jooq.generated"
+		}
+
+		// Database kedua: inventory_db
+		create("inventory") {
+			configuration {
+				jdbc {
+					driver = "org.postgresql.Driver"
+					url = "jdbc:postgresql://localhost:5433/inventory_db"
+					user = "postgres"
+					password = "postgres"
+				}
+				generator {
+					database {
+						name = "org.jooq.meta.postgres.PostgresDatabase"
+						inputSchema = "public"
+					}
+					target {
+						packageName = "com.test.mdn.infrastructure.persistence.jooq.inventory"
+					}
+				}
 			}
 		}
 	}
